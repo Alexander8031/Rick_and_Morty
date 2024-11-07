@@ -1,0 +1,45 @@
+@import "/src/components/style/fonts.css";
+
+/* Кнопка LOAD MORE */
+.buttonPrimary {
+  padding: 10px 32.5px;
+  border: none;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(33, 150, 243, 1);
+  background-color: rgba(242, 249, 254, 1);
+  box-shadow: 0px 6px 18px 0px rgba(0, 0, 0, 0.14);
+  margin: 20px; /* для лучшего просмотра кнопки */
+}
+
+.buttonPrimary:hover {
+  opacity: 0.7;
+}
+
+.buttonPrimary:active {
+  background: rgb(143, 202, 250);
+  color: rgb(255, 255, 255);
+}
+
+
+/* Кнопки Header */
+.buttonSecondary {
+  background: none;
+  font-family: "Karla";
+  font-weight: 700;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 1);
+  justify-content: center;
+  margin: 20px; /* для лучшего просмотра кнопки */
+}
+
+.buttonSecondary:hover {
+  opacity: 0.6;
+}
+
+.buttonSecondary:active {
+  color: rgba(33, 150, 243, 1);
+}
