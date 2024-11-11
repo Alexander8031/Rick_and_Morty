@@ -1,0 +1,18 @@
+.input__container {
+  margin: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  max-width: 240px;
+  max-height: 56px;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    max-width: 176px;
+    color: rgba(0, 0, 0, 0.7);
+}
