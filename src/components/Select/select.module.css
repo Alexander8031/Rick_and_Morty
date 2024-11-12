@@ -1,0 +1,33 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.select {
+  width: 100%;
+  height: 56px;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 16px;
+  appearance: none;
+  color: rgba(0, 0, 0, 0.6);
+  padding-left: 14px;
+}
+
+.arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  max-width: 10px;
+  height: 5px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.wrapper.open .arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
