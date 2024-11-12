@@ -1,7 +1,7 @@
 import classes from "../Select/select.module.css";
 import { useState } from "react";
 
-export default function Select({ name, selectOptions }) {
+export default function Select({ id, name, selectOptions }) {
   const [open, setOpen] = useState(false);
 
   const handleMouseDown = () => {
@@ -15,6 +15,7 @@ export default function Select({ name, selectOptions }) {
   return (
     <div className={`${classes.wrapper} ${open ? classes.open : ""}`}>
       <select
+        id={id}
         name={name}
         className={classes.select}
         onMouseDown={handleMouseDown}
