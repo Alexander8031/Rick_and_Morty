@@ -1,36 +1,67 @@
 .selectContainer {
   display: flex;
   align-items: center;
+  position: relative;
+  height: 56px;
 }
 
-.wrapper {
-  margin: 40px;
-  width: 100%;
-  max-width: 240px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
+.selectTextContainer {
   overflow: hidden;
 }
 
+.wrapper {
+  max-width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
 .select {
-  width: 100%;
-  height: 56px;
   font-family: "Roboto";
   font-weight: 400;
   font-size: 16px;
-  appearance: none;
+  padding-right: 30px;
   color: rgba(0, 0, 0, 0.6);
   padding-left: 16px;
-  padding-right: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.options {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 5px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  font-family: "Roboto";
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.option:hover {
+  background-color: rgba(33, 150, 243, 0.3);
+}
+
+.option:active {
+  background-color: rgba(33, 150, 243, 0.5);
 }
 
 .buttonArrow {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-left: -30px;
+  align-items: center;
   background: none;
-  pointer-events: none;
+  position: absolute;
+  right: 14px;
+}
+
+.arrow {
+  width: 10px;
+  height: 5px;
+  transition: transform 0.2s ease;
 }
 
 .wrapper.open .arrow {
