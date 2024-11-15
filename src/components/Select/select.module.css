@@ -4,6 +4,7 @@
 }
 
 .wrapper {
+  margin: 40px;
   width: 100%;
   max-width: 240px;
   border: 1px solid rgba(0, 0, 0, 0.5);
@@ -23,10 +24,12 @@
   padding-right: 35px;
 }
 
-.arrow {
-  width: 10px;
-  height: 5px;
+.buttonArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-left: -30px;
+  background: none;
   pointer-events: none;
 }
 

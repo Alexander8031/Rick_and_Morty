@@ -1,12 +1,20 @@
 import classes from "../Select/select.module.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { ReactComponent as MiniArrow } from "../../../public/image/icons/miniArrow.svg";
+import Button from "../Button/button.jsx";
 
-export default function Select({ id, name, options }) {
+export default function Select({ id, name, options, placeholder }) {
   const [open, setOpen] = useState(false);
+  const selectRef = useRef(null);
 
-  const handleOnClick = () => {
-    setOpen((previousState) => !previousState);
+  const handleOnClick = (el) => {
+    el.preventDefault();
+    if (selectRef.current) {
+      selectRef.current.focus();
+    } else {
+      selectRef.current.blur();
+    }
+    setOpen(!open);
   };
 
   const handleBlur = () => {
@@ -20,12 +28,13 @@ export default function Select({ id, name, options }) {
           id={id}
           name={name}
           className={classes.select}
+          ref={selectRef}
           onClick={handleOnClick}
           onBlur={handleBlur}
           defaultValue=""
         >
           <option value="" disabled hidden>
-            {name}
+            {placeholder}
           </option>
           {options &&
             options.map((option, index) => (
@@ -34,7 +43,13 @@ export default function Select({ id, name, options }) {
               </option>
             ))}
         </select>
-        <MiniArrow alt="▾" className={classes.arrow} />
+        <Button
+          type="secondary"
+          onMouseDown={handleOnClick}
+          className={classes.buttonArrow}
+        >
+          <MiniArrow alt="▾" className={classes.arrow} />
+        </Button>
       </div>
     </div>
   );
