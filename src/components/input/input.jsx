@@ -1,10 +1,10 @@
 import classes from "../input/input.module.css";
 import { useState } from "react";
 import { ReactComponent as Search } from "../../../public/image/icons/search.svg";
+import Button from "../Button/button.jsx";
 
 export default function Input({
   onChange,
-  onSearch,
   type = "default",
   placeholder,
   ...rest
@@ -12,43 +12,35 @@ export default function Input({
   
   const [inputValue, setInputValue] = useState("");
 
-  const defaultPlaceholder = type === "search" ? "Введите текст..." : "Поиск";
-  const currentPlaceholder = placeholder || defaultPlaceholder;
+  const currentPlaceholder =
+    placeholder || (type === "search" ? "Введите текст..." : "Поиск");
 
-  const handleInputChange = (event) => {
-    const value = event.target.value;
+  const handleInputChange = (event, actionType = "input") => {
+    const value =
+      event?.target?.value !== undefined ? event.target.value : inputValue;
     setInputValue(value);
     if (onChange) {
-      onChange(value);
-    }
-  };
-
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && onSearch) {
-      onSearch(inputValue);
+      onChange(value, { type: actionType, event });
     }
   };
 
   return (
     <div className={classes.input__container}>
       {type === "search" && (
-        <Search
-          className={classes.icon}
-          onClick={() => {
-            if (onSearch) {
-              onSearch(inputValue);
-            }
-          }}
-        />
+        <Button type="secondary">
+          <Search className={classes.icon} onClick={handleInputChange} />
+        </Button>
       )}
       <input
         type="text"
         className={classes.input}
         value={inputValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
         placeholder={currentPlaceholder}
         {...rest}
+        onKeyDown={() => {
+          onChange(inputValue, { type: "search" });
+        }}
       />
     </div>
   );
