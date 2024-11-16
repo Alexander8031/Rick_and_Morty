@@ -9,26 +9,22 @@ export default function Input({
   placeholder,
   ...rest
 }) {
-  
   const [inputValue, setInputValue] = useState("");
 
-  const currentPlaceholder =
+  const defaultPlaceholder =
     placeholder || (type === "search" ? "Введите текст..." : "Поиск");
 
-  const handleInputChange = (event, actionType = "input") => {
-    const value =
-      event?.target?.value !== undefined ? event.target.value : inputValue;
+  const handleInputChange = (event) => {
+    const value = event.target.value;
     setInputValue(value);
-    if (onChange) {
-      onChange(value, { type: actionType, event });
-    }
+    onChange?.(value);
   };
 
   return (
     <div className={classes.input__container}>
       {type === "search" && (
-        <Button type="secondary">
-          <Search className={classes.icon} onClick={handleInputChange} />
+        <Button type="secondary" onClick={() => onChange?.(inputValue)}>
+          <Search className={classes.icon} />
         </Button>
       )}
       <input
@@ -36,11 +32,8 @@ export default function Input({
         className={classes.input}
         value={inputValue}
         onChange={handleInputChange}
-        placeholder={currentPlaceholder}
+        placeholder={defaultPlaceholder}
         {...rest}
-        onKeyDown={() => {
-          onChange(inputValue, { type: "search" });
-        }}
       />
     </div>
   );
