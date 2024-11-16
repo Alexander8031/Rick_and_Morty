@@ -1,7 +1,6 @@
 import classes from "../input/input.module.css";
 import { useState } from "react";
 import { ReactComponent as Search } from "../../../public/image/icons/search.svg";
-import Button from "../Button/button.jsx";
 
 export default function Input({
   onChange,
@@ -22,11 +21,7 @@ export default function Input({
 
   return (
     <div className={classes.input__container}>
-      {type === "search" && (
-        <Button type="secondary" onClick={() => onChange?.(inputValue)}>
-          <Search className={classes.icon} />
-        </Button>
-      )}
+      {type === "search" && <Search className={classes.icon} />}
       <input
         type="text"
         className={classes.input}
