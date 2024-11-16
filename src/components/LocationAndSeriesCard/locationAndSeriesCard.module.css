@@ -1,0 +1,73 @@
+.name {
+  font-family: "Roboto";
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  margin: 38px 16px 5px 16px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* Location */
+.cardLocation {
+  display: block;
+  width: 240px;
+  height: 128px;
+  box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.14);
+  background-color: rgba(250, 250, 250, 1);
+  overflow: hidden;
+  transition: transfrom 0.2s;
+}
+
+.cardLocation:hover {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cardLocation:active {
+  box-shadow: 0px 10px 20px rgb(62, 131, 119);
+}
+
+.subnameLocation {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px 16px 38px 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Series */
+.cardSeries {
+  display: block;
+  width: 240px;
+  height: 128px;
+  box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.14);
+  background-color: rgba(250, 250, 250, 1);
+  overflow: hidden;
+  transition: transfrom 0.2s;
+}
+
+.cardSeries:hover {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cardSeries:active {
+  box-shadow: 0px 10px 20px rgb(62, 131, 119);
+}
+
+.subnameSeries {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  margin: 0px 16px 10px 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.description {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+  margin: 0px 91px 25px 91px;
+}
