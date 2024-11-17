@@ -10,21 +10,16 @@ export default function LocationAndSeriesCard({
   type = "location",
 }) {
   const navigate = useNavigate();
-
-  const CardClass =
-    type === "location" ? classes.cardLocation : classes.cardSeries;
-  const SubnameClass =
-    type === "location" ? classes.subnameLocation : classes.subnameSeries;
-
+  
   return (
     <Button
-      className={CardClass}
+      className={classes.card}
       onClick={() =>
         navigate(type === "location" ? `/location/${id}` : `/episodes/${id}`)
       }
     >
       <h3 className={classes.name}>{name}</h3>
-      <p className={SubnameClass}>{subname}</p>
+      <p className={classes.subname}>{subname}</p>
       {type === "series" && (
         <p className={classes.description}>{description}</p>
       )}
