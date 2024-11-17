@@ -1,76 +1,63 @@
 import classes from "../Select/select.module.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ReactComponent as MiniArrow } from "../../../public/image/icons/miniArrow.svg";
-import Button from "../Button/button.jsx";
+import {
+  Combobox,
+  ComboboxButton,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from "@headlessui/react";
 
-export default function Select({ id, name, options, placeholder }) {
-  const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(placeholder);
-  const [hoveredOption, setHoveredOption] = useState(null)
-  const selectRef = useRef(null);
+export default function Select({ placeholder, options }) {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleOnClick = () => {
-    setOpen((previous) => !previous);
-  };
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setOpen(false);
-    setHoveredOption(null)
-  };
-
-  const handleMouseEnter = (option) => {
-    setHoveredOption(option)
-  }
-
-  const handleMouseLeave = () => {
-    setHoveredOption(null)
-  }
-
-  const handleBlur = (e) => {
-    if (!selectRef.current.contains(e.relatedTarget)) {
-      setOpen(false);
-      setHoveredOption(null)
-    }
-  };
+  const filteredOptions =
+    (query || "").trim() === ""
+      ? options
+      : options.filter((option) =>
+          option.toString().toLowerCase().includes(String(query).toLowerCase())
+        );
 
   return (
-    <div
-      id={id}
-      className={`${classes.wrapper} ${open ? classes.open : ""}`}
-      ref={selectRef}
-      tabIndex={0}
-      onBlur={handleBlur}
+    <Combobox
+      value={selectedOption}
+      onChange={setSelectedOption}
+      onClose={() => {
+        setQuery(false);
+        setIsOpen(false);
+      }}
     >
-      <div className={classes.selectContainer} onClick={handleOnClick}>
-        <div className={classes.selectTextContainer}>
-          <div className={classes.select} name={name}>
-            {hoveredOption || selectedOption}
-          </div>
-        </div>
-        <Button type="secondary" className={classes.buttonArrow}>
-          <MiniArrow
-            alt="▾"
-            className={`${classes.arrow} ${open ? classes.arrowOpen : ""}`}
-          />
-        </Button>
+      <div className={classes.flexContainer} onClick={() => setIsOpen(true)}>
+        <ComboboxInput
+          displayValue={(option) =>
+            option !== null && option !== undefined ? option : ""
+          }
+          placeholder={placeholder}
+          className={classes.wrapper}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        <ComboboxButton>
+          <MiniArrow alt="▾" className={classes.arrow} />
+        </ComboboxButton>
       </div>
-      {open && (
-        <ul className={classes.options}>
-          {options.map((option, index) => (
-            <li
-              key={index}
-              className={classes.option}
-              onClick={() => handleOptionSelect(option)}
-              onMouseEnter={() => handleMouseEnter(option)}
-              onMouseLeave={handleMouseLeave}
-              tabIndex={0}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      <ComboboxOptions as="ul" className={classes.options}>
+        {filteredOptions.map((option, index) => (
+          <ComboboxOption
+            as="li"
+            key={index}
+            value={option}
+            className={classes.option}
+          >
+            {option}
+          </ComboboxOption>
+        ))}
+        {filteredOptions.length === 0 && (
+          <li className={classes.option}>Ничего не найдено</li>
+        )}
+      </ComboboxOptions>
+    </Combobox>
   );
 }

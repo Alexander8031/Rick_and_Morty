@@ -1,9 +1,8 @@
 import Layout from "./components/Layout/layout.jsx";
 
 function App() {
-
   return (
-    <Layout />
+    <Layout/>
   );
 }
 
