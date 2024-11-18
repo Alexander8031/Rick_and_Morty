@@ -1,0 +1,58 @@
+.wrapper {
+  width: 240px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 8px;
+  position: relative;
+}
+
+.wrapper:hover {
+  border-color: rgba(1, 74, 134, 0.5);
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  padding: 10px 30px 10px 10px;
+  font-size: 16px;
+  font-family: "Roboto";
+}
+
+.selectText {
+  overflow: hidden;
+}
+
+.options {
+  position: absolute;
+  top: 102%;
+  width: 100%;
+  border: 1px solid rgba(1, 74, 134, 0.5);
+  border-radius: 8px;
+  box-shadow: 1px rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+  padding: 8px;
+  font-size: 16px;
+  font-family: "Roboto";
+}
+
+.option {
+  padding: 5px 0;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  text-overflow: ellipsis;
+}
+
+.option:hover {
+  background-color: rgba(33, 150, 243, 0.3);
+}
+
+.arrow {
+  position: absolute;
+  right: 13px;
+}
+
