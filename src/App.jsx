@@ -1,8 +1,18 @@
 import Layout from "./components/Layout/Layout.jsx";
+import { Route, Routes } from "react-router-dom";
+import Characters from "./components/Characters/characters.jsx";
+import Locations from "./components/Locations/locations.jsx";
+import Episodes from "./components/Episodes/episodes.jsx";
 
 function App() {
   return (
-    <Layout />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="characters" element={<Characters />} />
+          <Route path="locations" element={<Locations />} />
+          <Route path="episodes" element={<Episodes />} />
+        </Route>
+      </Routes>
   );
 }
 
