@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function useFetching(fetchFunction) {
+export default function useFetching(addEndUrl) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const baseUrl = "https://rickandmortyapi.com/api";
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      setError(null);
       try {
-        const result = await fetchFunction();
-        setData(result);
+        const response = await axios.get(`${baseUrl}${addEndUrl}`);
+        setData(response.data);
       } catch (err) {
-        setError(err.message || "Что-то пошло не так...");
+        setError(err.response?.data?.message || "Что-то пошло не так...");
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [fetchFunction]);
+  }, [addEndUrl]);
 
-  return { data, isLoading };
+  return { data, isLoading, error };
 }
