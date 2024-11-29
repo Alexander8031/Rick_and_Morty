@@ -1,0 +1,28 @@
+.containerImg {
+  display: flex;
+  justify-content: center;
+  margin: 26px 0px 16px 0px
+}
+
+.img {
+  width: 600px;
+  height: 200px;
+}
+
+.containerInputSelects {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 0px 61px 0px;
+}
+
+.containerCharacters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.containerButton {
+    display: flex;
+    justify-content: center;
+    margin: 48px 0px 0px 0px;
+}
