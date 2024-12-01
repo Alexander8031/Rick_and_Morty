@@ -5,11 +5,16 @@ import Input from "../input/input";
 import CharacterCard from "../characterCard/characterCard";
 import Button from "../Button/Button";
 import useFetching from "../UseFetching/UseFetching";
-import Selects from "../Selects/selects";
+// import Selects from "../Selects/selects";
+import useStore from "../../store/store";
 
 export default function CharactersPage() {
-  const { data, isLoading, error } = useFetching("/character");
+  useFetching("/character");
   const [ visibleCount, setVisibleCount ] = useState(8);
+
+  const results = useStore((state) => state.results)
+  const isLoading = useStore((state) => state.isLoading)
+  const error = useStore((state) => state.error)
 
   if (isLoading) {
     return <p>Загружаем персонажей...</p>;
@@ -19,7 +24,7 @@ export default function CharactersPage() {
     return <p>Ошибка: {error}</p>;
   }
 
-  const visibleCharacters = data?.results?.slice(0, visibleCount);
+  const visibleCharacters = results?.slice(0, visibleCount);
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 8);
   };
@@ -44,7 +49,7 @@ export default function CharactersPage() {
         ))}
       </div>
       <div className={classes.containerButton}>
-        {visibleCount < data?.results?.length && (
+        {visibleCount < results?.length && (
           <Button type="primary" onClick={handleLoadMore}>
             LOAD MORE
           </Button>

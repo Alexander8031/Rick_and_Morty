@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useStore from "../../store/store";
 
 export default function useFetching(addEndUrl) {
-  const [data, setData] = useState(null);
+  const setResults = useStore((state) => state.setResults);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const baseUrl = "https://rickandmortyapi.com/api";
+  const baseUrl = "https://rickandmortyapi.com/api"
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,7 +15,7 @@ export default function useFetching(addEndUrl) {
       setError(null);
       try {
         const response = await axios.get(`${baseUrl}${addEndUrl}`);
-        setData(response.data);
+        setResults(response.data.results);
       } catch (err) {
         setError(err.response?.data?.message || "Что-то пошло не так...");
       } finally {
@@ -23,7 +24,7 @@ export default function useFetching(addEndUrl) {
     };
 
     fetchData();
-  }, [addEndUrl]);
+  }, [addEndUrl, setResults]);
 
-  return { data, isLoading, error };
+  return { isLoading, error };
 }
