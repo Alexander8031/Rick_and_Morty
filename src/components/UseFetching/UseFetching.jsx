@@ -4,13 +4,9 @@ import useStore from "../../store/store";
 
 export default function useFetching(url, params) {
   const setCharacters = useStore((state) => state.setCharacters);
+  const setFilterOptions = useStore((state) => state.setFilterOptions);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [options, setOptions] = useState({
-    species: [],
-    gender: [],
-    status: [],
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +23,10 @@ export default function useFetching(url, params) {
 
         if (Array.isArray(response.data.results)) {
           setCharacters(response.data.results, params.page > 1);
-        } else {
+        }
+
+        if (response.data.results.length === 0) {
+          setCharacters([], false)
         }
 
         if (params.page === 1 && Array.isArray(response.data.results)) {
@@ -41,21 +40,21 @@ export default function useFetching(url, params) {
             statusSet.add(character.status);
           });
 
-          setOptions({
+          setFilterOptions({
             species: Array.from(speciesSet),
             gender: Array.from(genderSet),
             status: Array.from(statusSet),
           });
         }
       } catch (err) {
-        setError(err.response?.data?.message || "Ошибка");
+        setError(err.response?.data?.message || 'Ошибка при загрузке данных');
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [url, params]);
+  }, [url, params, setCharacters, setFilterOptions]);
 
-  return { isLoading, error, options };
+  return { isLoading, error };
 }

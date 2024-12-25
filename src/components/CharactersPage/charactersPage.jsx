@@ -12,6 +12,7 @@ export default function CharactersPage() {
   const characters = useStore((state) => state.characters);
   const page = useStore((state) => state.page);
   const filters = useStore((state) => state.filters);
+  const options = useStore((state) => state.options);
   const setPage = useStore((state) => state.setPage);
   const setFilters = useStore((state) => state.setFilters);
 
@@ -26,7 +27,7 @@ export default function CharactersPage() {
     [page, filters]
   );
 
-  const { isLoading, error, options } = useFetching("/character", params);
+  const { isLoading } = useFetching("/character", params);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -35,14 +36,6 @@ export default function CharactersPage() {
   const handleFilterChange = (key, value) => {
     setFilters({ [key]: value });
   };
-
-  if (isLoading && page === 1) {
-    return <p>Загружаем персонажей...</p>;
-  }
-
-  if (error) {
-    return <p>Ошибка: {error}</p>;
-  }
 
   return (
     <div>
@@ -53,39 +46,43 @@ export default function CharactersPage() {
         <Input
           type="search"
           placeholder="Search characters"
+          value={filters.search}
           onChange={(value) => handleFilterChange("search", value)}
         />
         <Selects
           placeholder="Species"
           name="species"
           options={options.species}
+          value={filters.species}
           onChange={(value) => handleFilterChange("species", value)}
         />
         <Selects
           placeholder="Gender"
           name="gender"
           options={options.gender}
+          value={filters.gender}
           onChange={(value) => handleFilterChange("gender", value)}
         />
         <Selects
           placeholder="Status"
           name="status"
           options={options.status}
+          value={filters.status}
           onChange={(value) => handleFilterChange("status", value)}
         />
       </div>
       <div className={classes.containerCharacters}>
-        {Array.isArray(characters) && characters.length > 0 
-        ? (
+        {isLoading ? (
+          <p>Загружаем персонажей...</p>
+        ) : characters.length > 0 ? (
           characters.map((character) => (
             <CharacterCard key={character.id} character={character} />
-          ))) 
-        : (
+          ))
+        ) : (
           <p>Нет персонажей для отображения</p>
-          )
-        }
+        )}
       </div>
-      {Array.isArray(characters) && characters.length > 0 && (
+      {Array.isArray(characters) && characters.length > 16 && (
         <div className={classes.containerButton}>
           <Button type="primary" onClick={handleLoadMore}>
             LOAD MORE
