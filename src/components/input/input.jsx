@@ -1,22 +1,27 @@
 import classes from "../input/input.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactComponent as Search } from "../../../public/image/icons/search.svg";
 
 export default function Input({
   onChange,
   type = "default",
   placeholder,
+  value,
   ...rest
 }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(value || "");
+
+  useEffect(() => {
+    setInputValue(value || "")
+  }, [value])
 
   const defaultPlaceholder =
     placeholder || (type === "search" ? "Введите текст..." : "Поиск");
 
   const handleInputChange = (event) => {
-    const value = event.target.value;
-    setInputValue(value);
-    onChange?.(value);
+    const newValue = event.target.value;
+    setInputValue(newValue);
+    onChange?.(newValue);
   };
 
   return (

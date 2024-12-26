@@ -7,10 +7,15 @@ import {
 } from "@headlessui/react";
 import { ReactComponent as MiniArrow } from "../../../public/image/icons/miniArrow.svg";
 
-export default function Selects({ placeholder, name, options }) {
+export default function Selects({ value, placeholder, name, options, onChange }) {
   return (
-    <Listbox as="div" name={name} className={classes.wrapper}>
-      {({ value }) => (
+    <Listbox
+      as="div"
+      value={value}
+      name={name}
+      className={classes.wrapper}
+      onChange={onChange}
+    >
         <>
           <ListboxButton className={classes.select}>
             <span className={classes.selectText}>{value || placeholder}</span>
@@ -28,7 +33,6 @@ export default function Selects({ placeholder, name, options }) {
             ))}
           </ListboxOptions>
         </>
-      )}
     </Listbox>
   );
 }
