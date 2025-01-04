@@ -18,8 +18,6 @@ export default function Episodes() {
     () => ({
       page,
       name: filters.search,
-      type: filters.type,
-      dimension: filters.dimension,
     }),
     [page, filters]
   );
