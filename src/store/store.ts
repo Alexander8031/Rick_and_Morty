@@ -9,6 +9,13 @@ export type Character = {
   image: string;
 };
 
+export type Episode = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: [];
+
 export type Location = {
   id: number;
   name: string;
@@ -36,11 +43,13 @@ interface FilterOptions {
 
 interface CharacterStoreState {
   characters: Character[];
+  episode: Episode[];
   location: Location[];
   page: number;
   filters: Filters;
   options: FilterOptions;
   setCharacters: (characters: Character[], append: boolean) => void;
+  setEpisode: (episode: Episode[], append: boolean) => void;
   setLocation: (location: Location[], append: boolean) => void;
   setPage: (page: number) => void;
   setFilters: (filters: Partial<Filters>) => void;
@@ -49,6 +58,7 @@ interface CharacterStoreState {
 
 const useStore = create<CharacterStoreState>((set) => ({
   characters: [],
+  episode: [],
   location: [],
   page: 1,
   filters: {
@@ -72,6 +82,11 @@ const useStore = create<CharacterStoreState>((set) => ({
         ? [...state.characters, ...newCharacters]
         : newCharacters,
     })),
+  setEpisode: (newEpisode, append) =>
+    set((state) => ({
+      episode: append
+        ? [...state.episode, ...newEpisode]
+        : newEpisode,
   setLocation: (newLocation, append) =>
     set((state) => ({
       location: append
