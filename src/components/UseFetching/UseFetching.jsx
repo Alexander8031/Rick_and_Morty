@@ -3,6 +3,7 @@ import axios from "axios";
 import useStore from "../../store/store";
 
 export default function useFetching(url, params) {
+  const setLocation = useStore((state) => state.setLocation)
   const setCharacters = useStore((state) => state.setCharacters);
   const setFilterOptions = useStore((state) => state.setFilterOptions);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +55,7 @@ export default function useFetching(url, params) {
     };
 
     fetchData();
-  }, [url, params, setCharacters, setFilterOptions]);
+  }, [url, params, setCharacters, setFilterOptions, setLocation ]);
 
   return { isLoading, error };
 }

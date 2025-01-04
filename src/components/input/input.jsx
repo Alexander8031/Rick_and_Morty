@@ -7,6 +7,7 @@ export default function Input({
   type = "default",
   placeholder,
   value,
+  style,
   ...rest
 }) {
   const [inputValue, setInputValue] = useState(value || "");
@@ -25,7 +26,7 @@ export default function Input({
   };
 
   return (
-    <div className={classes.input__container}>
+    <div className={classes.input__container} style={style}>
       {type === "search" && <Search className={classes.icon} />}
       <input
         type="text"
