@@ -2,31 +2,19 @@ import classes from "../Locations/locations.module.css";
 import { ReactComponent as RickAndMortyLocations } from "../../../public/icons/RickAndMortyLocations.svg";
 import Input from "../input/input";
 import useStore from "../../store/store.ts";
-import { useMemo } from "react";
-import useFetching from "../UseFetching/UseFetching";
 import Selects from "../Selects/selects";
 import Button from "../Button/Button";
 import LocationAndSeriesCard from "../LocationAndSeriesCard/locationAndSeriesCard.jsx";
+import useLocations from "./useLocations.js";
 
 export default function Locations() {
+  const { isLoading } = useLocations();
   const location = useStore((state) => state.location);
   const page = useStore((state) => state.page);
   const filters = useStore((state) => state.filters);
   const options = useStore((state) => state.options);
   const setPage = useStore((state) => state.setPage);
   const setFilters = useStore((state) => state.setFilters);
-
-  const params = useMemo(
-    () => ({
-      page,
-      name: filters.search,
-      type: filters.type,
-      dimension: filters.dimension,
-    }),
-    [page, filters]
-  );
-
-  const { isLoading } = useFetching("/location", params);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -69,7 +57,12 @@ export default function Locations() {
           <p>Загружаем локации...</p>
         ) : location.length > 0 ? (
           location.map((location) => (
-            <LocationAndSeriesCard key={location.id} location={location} />
+            <LocationAndSeriesCard
+              key={location.id}
+              name={location.name}
+              subname={location.type}
+              type="location"
+            />
           ))
         ) : (
           <p>Нет локаций для отображения</p>
