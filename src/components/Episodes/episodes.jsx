@@ -2,27 +2,17 @@ import classes from "../Episodes/episodes.module.css";
 import { ReactComponent as RickAndMortyEpisodes } from "../../../public/icons/RickAndMortyEpisodes.svg";
 import Input from "../input/input";
 import useStore from "../../store/store.ts";
-import { useMemo } from "react";
-import useFetching from "../UseFetching/UseFetching";
 import Button from "../Button/Button";
 import LocationAndSeriesCard from "../LocationAndSeriesCard/locationAndSeriesCard.jsx";
+import useEpisodes from "./useEpisodes.js";
 
 export default function Episodes() {
+  const { isLoading } = useEpisodes();
   const episode = useStore((state) => state.episode);
   const page = useStore((state) => state.page);
   const filters = useStore((state) => state.filters);
   const setPage = useStore((state) => state.setPage);
   const setFilters = useStore((state) => state.setFilters);
-
-  const params = useMemo(
-    () => ({
-      page,
-      name: filters.search,
-    }),
-    [page, filters]
-  );
-
-  const { isLoading } = useFetching("/episode", params);
 
   const handleLoadMore = () => {
     setPage(page + 1);
@@ -51,7 +41,13 @@ export default function Episodes() {
           <p>Загружаем эпизоды...</p>
         ) : episode.length > 0 ? (
           episode.map((episode) => (
-            <LocationAndSeriesCard key={episode.id} episode={episode} />
+            <LocationAndSeriesCard
+              key={episode.id}
+              name={episode.name}
+              subname={episode.air_date}
+              description={episode.episode}
+              type="series"
+            />
           ))
         ) : (
           <p>Нет эпизодов для отображения</p>

@@ -15,6 +15,7 @@ export type Episode = {
   air_date: string;
   episode: string;
   characters: [];
+}
 
 export type Location = {
   id: number;
@@ -87,6 +88,7 @@ const useStore = create<CharacterStoreState>((set) => ({
       episode: append
         ? [...state.episode, ...newEpisode]
         : newEpisode,
+    })),
   setLocation: (newLocation, append) =>
     set((state) => ({
       location: append
@@ -121,4 +123,4 @@ const useStore = create<CharacterStoreState>((set) => ({
     })),
 }));
 
-export default useStore;
+export default useStore

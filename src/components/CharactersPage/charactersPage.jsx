@@ -4,30 +4,17 @@ import Input from "../input/input";
 import Selects from "../Selects/selects";
 import CharacterCard from "../characterCard/characterCard";
 import Button from "../Button/Button";
-import useFetching from "../UseFetching/UseFetching";
 import useStore from "../../store/store";
-import { useMemo } from "react";
+import useCharacters from "./useCharacters";
 
 export default function CharactersPage() {
+  const { isLoading } = useCharacters();
   const characters = useStore((state) => state.characters);
   const page = useStore((state) => state.page);
   const filters = useStore((state) => state.filters);
   const options = useStore((state) => state.options);
   const setPage = useStore((state) => state.setPage);
   const setFilters = useStore((state) => state.setFilters);
-
-  const params = useMemo(
-    () => ({
-      page,
-      name: filters.search,
-      species: filters.species,
-      gender: filters.gender,
-      status: filters.status,
-    }),
-    [page, filters]
-  );
-
-  const { isLoading } = useFetching("/character", params);
 
   const handleLoadMore = () => {
     setPage(page + 1);
